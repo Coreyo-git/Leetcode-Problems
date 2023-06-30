@@ -47,7 +47,6 @@ public class SymmetricTree
 		root1.right.left = new TreeNode(4);
 		root1.right.right = new TreeNode(3);
 		
-
 		TreeNode root2 = new TreeNode(1);
 		root2.left = new TreeNode(2);
 		root2.left.right = new TreeNode(3);
@@ -56,7 +55,6 @@ public class SymmetricTree
 
 		TreeNode root3 = new TreeNode(1);
 		root3.left = new TreeNode(0);
-
 
 		Debug.Assert(isSymmetric(root1), "Test 1 Failed");
 		Debug.Assert(!isSymmetric(root2), "Test 2 Failed");
