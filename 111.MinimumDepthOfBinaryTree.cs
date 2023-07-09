@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System;
 using System.Collections.Generic;
@@ -24,19 +25,26 @@ public class MinimumDepthOfBinaryTree
 
 	public static int MinDepth(TreeNode root)
 	{
-		int depth = 0;
-		if (root == null) return depth;
+		if (root == null)
+			return 0;
 
-		dfs(root, depth);
+		int minDepth = int.MaxValue;
+		dfs(root, 1, ref minDepth);
 
-		return depth;
+		return minDepth;
 	}
 
-	private static void dfs(TreeNode node, int depth)
+	private static void dfs(TreeNode node, int depth, ref int minDepth)
 	{
-		if (node == null) return;
+		if (node.left == null && node.right == null)
+		{
+			minDepth = Math.Min(minDepth, depth);
+			return;
+		}
 
-		return;
+		if (node.left != null) dfs(node.left, depth + 1, ref minDepth);
+
+		if (node.right != null) dfs(node.right, depth + 1, ref minDepth);
 	}
 
 	public static void Main(string[] args)
@@ -59,10 +67,20 @@ public class MinimumDepthOfBinaryTree
 		root2.right.right.right = new TreeNode(5);
 		root2.right.right.right.right = new TreeNode(6);
 
+		// Input: root = [1,2,3,4,5]
+		// Output: 2
+		TreeNode root3 = new TreeNode(1);
+		root3.left = new TreeNode(2);
+		root3.right = new TreeNode(3);
+		root3.left.left = new TreeNode(4);
+		root3.left.right = new TreeNode(5);
+
 		int depth1 = MinDepth(root1);
 		int depth2 = MinDepth(root2);
+		int depth3 = MinDepth(root3);
 		Debug.Assert(depth1 == 2, $"Test 1 Failed\nExpected: 2\nActual: {depth1}");
 		Debug.Assert(depth2 == 5, $"Test 2 Failed\nExpected: 5\nActual: {depth2}");
+		Debug.Assert(depth3 == 2, $"Test 3 Failed\nExpected: 2\nActual: {depth3}");
 	}
 }
 
