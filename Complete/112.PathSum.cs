@@ -29,52 +29,15 @@ public class PathSum
 		}
 	}
 
-	public static bool HasPathSum(TreeNode root, int targetSum)
+	public static bool HasPathSum(TreeNode root, int? targetSum)
 	{
-		if (root == null)
-		{
-			return false;
-		}
-		int? root_val = root.val;
-		int? sum = 0;
-
-		return dfs(root, ref sum, root_val, targetSum);
+		if(root == null) return false;
+		
+		if (root.left == null && root.right == null) 
+			return targetSum == root?.val;
+		
+		return HasPathSum(root.left!, targetSum - root.val) || HasPathSum(root.right!, targetSum - root.val);
 	}
-
-	static bool dfs(TreeNode root, ref int? sum, int? root_val, int targetSum)
-	{
-
-
-		if (root == null)
-		{
-			return false;
-		}
-		if (targetSum == 3)
-			Console.WriteLine($"sum: {sum} targetSum: {targetSum}, adding val: {root.val}");
-
-		sum += root.val;
-
-		if (root.left == null && root.right == null)
-		{
-			if (sum == targetSum)
-			{
-				if (targetSum == 3)
-				{
-					Console.WriteLine($"True!! : sum: {sum} targetSum: {targetSum}, adding val: {root.val}\n");
-				}
-				return true;
-			}
-			else sum -= root.val;
-		}
-
-		if (dfs(root.left!, ref sum, root_val, targetSum)) return true;
-		if(targetSum == 3)
-			Console.WriteLine("");
-		if (dfs(root.right!, ref sum, root_val, targetSum)) return true;
-
-		return false;
-	}
-
 
 	public static void Main(string[] args)
 	{
@@ -132,8 +95,8 @@ public class PathSum
 		Debug.Assert(!HasPathSum(root3, targetSum3), $"Test 5 root3 Failed\nExpected: false\nActual: true");
 		Debug.Assert(!HasPathSum(root3, 99), $"Test 6 root3 Failed\nExpected: false\nActual: true");
 
-		Debug.Assert(!HasPathSum(root4, targetSum4), $"Test 7 root4 Failed\nExpected: false\nActual: true");
-		Debug.Assert(!HasPathSum(root4, 99), $"Test 8 root4 Failed\nExpected: false\nActual: true");
+		Debug.Assert(!HasPathSum(root4, targetSum4), $"Test 6 root4 Failed\nExpected: false\nActual: true");
+		Debug.Assert(!HasPathSum(root4, 99), $"Test 7 root4 Failed\nExpected: false\nActual: true");
 	}
 }
 
