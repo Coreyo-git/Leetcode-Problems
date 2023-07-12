@@ -9,6 +9,7 @@
 
   <ItemGroup>
   <Compile Remove="Complete/*"/>
+  <Compile Remove="LeetCode75/*"/>
   </ItemGroup>
 
 </Project>
