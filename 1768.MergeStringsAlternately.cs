@@ -1,10 +1,29 @@
 using System.Diagnostics;
+using System.Text;
 
 public class MergeStringsAlternately
 {
 	public string MergeAlternately(string word1, string word2)
 	{
-		return "";
+		if (string.IsNullOrEmpty(word1) || string.IsNullOrEmpty(word2)) return word1 + word2;
+		char[] w1Letters = word1.ToCharArray();
+		char[] w2Letters = word2.ToCharArray();
+		StringBuilder mergedWord = new StringBuilder();
+
+		while (w1Letters.Length > 0 || w2Letters.Length > 0)
+		{
+			if (w1Letters.Length > 0)
+			{
+				mergedWord.Append(w1Letters[0]);
+				w1Letters = w1Letters[1..];
+			}
+			if (w2Letters.Length > 0)
+			{
+				mergedWord.Append(w2Letters[0]);
+				w2Letters = w2Letters[1..];
+			}
+		}
+		return mergedWord.ToString();
 	}
 
 	public static void Main(string[] args)
@@ -18,7 +37,7 @@ public class MergeStringsAlternately
 		// word2:    p   q   r
 		// merged: a p b q c r
 
-		string test1Output = stringMerger.MergeAlternately("abc", "pqe");
+		string test1Output = stringMerger.MergeAlternately("abc", "pqr");
 		string test1Expected = "apbqcr";
 		Debug.Assert(test1Output == test1Expected, formatTestErrorMessage("1", test1Expected, test1Output));
 
