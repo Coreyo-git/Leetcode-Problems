@@ -1,3 +1,4 @@
+using System.Text;
 using System.Diagnostics;
 
 // For two strings s and t, we say "t divides s" 
@@ -12,8 +13,27 @@ public class GreatestCommonDivisorOfStrings
 
 	public string GcdOfStrings(string str1, string str2)
 	{
+		//checks if the concatenated strings are equal. 
+		// If they are not equal, it means they cannot from a GCD
+		if (!(str1 + str2).Equals(str2 + str1))
+		{
+			return "";
+		}
 
-		return "";
+		int gcdLength = GetGcdLength(str1.Length, str2.Length);
+		return str1.Substring(0, gcdLength);
+	}
+
+	// Euclidean algorithm to find the GCD
+	private int GetGcdLength(int a, int b)
+	{
+		Console.WriteLine(a);
+		if (b == 0)
+		{
+			return a;
+		}
+		
+		return GetGcdLength(b, a % b);
 	}
 
 	public static void Main(string[] args)
