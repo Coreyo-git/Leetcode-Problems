@@ -5,24 +5,17 @@ public class MergeStringsAlternately
 {
 	public string MergeAlternately(string word1, string word2)
 	{
-		if (string.IsNullOrEmpty(word1) || string.IsNullOrEmpty(word2)) return word1 + word2;
-		char[] w1Letters = word1.ToCharArray();
-		char[] w2Letters = word2.ToCharArray();
+		if (word1.Length == 0 || word2.Length == 0) return word1 + word2;
+		
 		StringBuilder mergedWord = new StringBuilder();
 
-		while (w1Letters.Length > 0 || w2Letters.Length > 0)
+		int maxLength = Math.Max(word1.Length, word2.Length);
+		for (int i = 0; i < maxLength; i++)
 		{
-			if (w1Letters.Length > 0)
-			{
-				mergedWord.Append(w1Letters[0]);
-				w1Letters = w1Letters[1..];
-			}
-			if (w2Letters.Length > 0)
-			{
-				mergedWord.Append(w2Letters[0]);
-				w2Letters = w2Letters[1..];
-			}
+			if (i < word1.Length) mergedWord.Append(word1[i]);
+			if (i < word2.Length) mergedWord.Append(word2[i]);
 		}
+
 		return mergedWord.ToString();
 	}
 
