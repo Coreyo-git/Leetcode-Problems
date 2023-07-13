@@ -6,6 +6,20 @@ public class KidsWithTheGreatestNumberOfCandies
 	public IList<bool> KidsWithCandies(int[] candies, int extraCandies)
 	{
 		IList<bool> greatestNumberOfCandies = new List<bool>();
+		int max = 0;
+
+		for (int i = 0; i < candies.Length; i++)
+		{
+			if (max < candies[i]) max = candies[i];
+		}
+		
+		for (int i = 0; i < candies.Length; i++)
+		{
+			if(candies[i] + extraCandies >= max) greatestNumberOfCandies.Add(true);
+			else greatestNumberOfCandies.Add(false);
+		}
+
+		// Console.WriteLine(max);
 
 		return greatestNumberOfCandies;
 	}
