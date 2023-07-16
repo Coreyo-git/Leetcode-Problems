@@ -4,45 +4,39 @@ using System.Text;
 public class ReverseVowelsOfAString
 {
 	public string ReverseVowels(string s)
-	{
-		if (s.Length < 1) return s;
-		HashSet<char> vowels = new HashSet<char> { 'a', 'e', 'i', 'o', 'u' };
-		char[] chars = s.ToCharArray();
-		int start = 0;
-		int end = s.Length - 1;
-		bool startFound = false;
-		bool endFound = false;
+{
+    if (string.IsNullOrEmpty(s)) return s;
 
-		while (start < end)
-		{			
-			if (!startFound && vowels.Contains(char.ToLower(s[start])))
-			{
-				startFound = true;
-			}
-			if (!startFound) start++;
+    HashSet<char> vowels = new HashSet<char> { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
+    char[] chars = s.ToCharArray();
+    int start = 0;
+    int end = s.Length - 1;
 
-			
-			
-			if (!endFound && vowels.Contains(char.ToLower(s[end])))
-			{
-				endFound = true;
-			}
-			if (!endFound) end--;
+    while (start < end)
+    {
+        while (start < end && !vowels.Contains(chars[start]))
+        {
+            start++;
+        }
 
-			if (endFound && startFound) {
-				char temp = s[start];
-				chars[start] = chars[end];
-				chars[end] = temp;
-				endFound = false;
-				startFound = false;
-				start++;
-				end--;
-			}
-		}
+        while (start < end && !vowels.Contains(chars[end]))
+        {
+            end--;
+        }
 
+        if (start < end)
+        {
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+            start++;
+            end--;
+        }
+    }
 
-		return string.Join("", chars);
-	}
+    return new string(chars);
+}
+
 
 	public static void Main(string[] args)
 	{
