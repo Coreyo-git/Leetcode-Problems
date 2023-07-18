@@ -1,12 +1,32 @@
 using System.Diagnostics;
 using System.Text;
 
+// Had to go to neetcode for this one.
+// https://www.youtube.com/watch?v=bNvIQI2wAjk
+
 public class ProductofArrayExceptSelf
 
 {
 	public int[] ProductExceptSelf(int[] nums)
 	{
-		return nums;
+		int n = nums.Length;
+		int[] res = new int[n];
+		int prefix = 1;
+
+		for (int i = 0; i < n; i++)
+		{
+			res[i] = prefix;
+			prefix *= nums[i];
+		}
+
+		int postfix = 1;
+		for (int i = n - 1; i >= 0; i--)
+		{
+			res[i] *= postfix;
+			postfix *= nums[i];
+		}
+
+		return res;
 	}
 
 
@@ -15,18 +35,23 @@ public class ProductofArrayExceptSelf
 		ProductofArrayExceptSelf
  		productCalc = new ProductofArrayExceptSelf();
 
-		// Input: s = "hello"
-		// Output: "holle"
+		// 4 | 1 * 2 * 3 = 6
+		// 3 | 1 * 2 * 4 = 8
+		// 2 | 1 * 3 * 4 = 12 
+		// 1 | 2 * 3 * 4 = 24
+
+		// Input: nums = [1,2,3,4]
+		// Output:		[24,12,8,6]
 
 		int[] test1Output = productCalc.ProductExceptSelf(new int[] { 1, 2, 3, 4 });
 		int[] test1Expected = { 24, 12, 8, 6 };
-		Debug.Assert(test1Output == test1Expected, formatTestErrorMessage<int[]>("1", test1Expected, test1Output));
+		Debug.Assert(test1Output.SequenceEqual(test1Expected), formatTestErrorMessage<int[]>("1", test1Expected, test1Output));
 
-		// Input: s = "leetcode"
-		// Output: "leotcede"
+		// Input: nums = [-1,1,0,-3,3]
+		// Output: [0,0,9,0,0]
 		int[] test2Output = productCalc.ProductExceptSelf(new int[] { -1, 1, 0, -3, 3 });
 		int[] test2Expected = { 0, 0, 9, 0, 0 };
-		Debug.Assert(test2Output == test2Expected, formatTestErrorMessage<int[]>("2", test2Expected, test2Output));
+		Debug.Assert(test2Output.SequenceEqual(test2Expected), formatTestErrorMessage<int[]>("2", test2Expected, test2Output));
 	}
 
 	/// <summary>
