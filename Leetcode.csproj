@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-  <Compile Remove="Complete/*"/>
-  <Compile Remove="LeetCode75/*"/>
+  <Compile Remove="Complete/**/*"/>
   </ItemGroup>
 
 </Project>
