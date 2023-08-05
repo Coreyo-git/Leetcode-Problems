@@ -18,14 +18,24 @@ public class Solution
 
 	public bool LeafSimilar(TreeNode root1, TreeNode root2)
 	{
+		List<int> LeafSequence1 = new List<int>();
+		List<int> LeafSequence2 = new List<int>();
 
+		traverseForLeafSequence(root1, LeafSequence1);
+		traverseForLeafSequence(root2, LeafSequence2);
 
-		return false;
+		return LeafSequence1.SequenceEqual(LeafSequence2);
 	}
 
 	public void traverseForLeafSequence(TreeNode root, List<int> leafSequence)
 	{
-
+		if(root.left == null && root.right == null) 
+		{
+			leafSequence.Add(root.val ?? 0);
+			return;
+		}
+		if(root.left != null) traverseForLeafSequence(root.left, leafSequence);
+		if(root.right != null) traverseForLeafSequence(root.right, leafSequence);
 	}
 
 	public static void Main(string[] args)
