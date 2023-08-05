@@ -5,10 +5,14 @@ public class Solution
 {
 	public bool IsSubesquence(string s, string t)
 	{
+		// handles empty strings
 		if (s == "") return true;
 		if (t == "") return false;
-		
+
+		// pointer/counter for sequence
 		int pointer = 0;
+
+		// increment on each element of sequence found
 		for (int i = 0; i < t.Length; i++)
 		{
 			if (t[i] == s[pointer]) pointer++;
