@@ -5,6 +5,15 @@ public class Solution
 {
 	public bool IsSubesquence(string s, string t)
 	{
+		if (s == "") return true;
+		if (t == "") return false;
+		
+		int pointer = 0;
+		for (int i = 0; i < t.Length; i++)
+		{
+			if (t[i] == s[pointer]) pointer++;
+			if (pointer >= s.Length) return true;
+		}
 		return false;
 	}
 
@@ -24,6 +33,13 @@ public class Solution
 		bool test2Output = SubsequenceChecker.IsSubesquence("axc", "ahbgdc");
 		bool test2Expected = false;
 		Debug.Assert(!test2Output, formatTestErrorMessage<bool>("2", test2Expected, test2Output));
+
+		// Input: s = "", t = "ahbgdc"
+		// Output: false
+
+		bool test3Output = SubsequenceChecker.IsSubesquence("", "ahbgdc");
+		bool test3Expected = true;
+		Debug.Assert(test3Output, formatTestErrorMessage<bool>("3", test3Expected, test3Output));
 	}
 
 	/// <summary>
