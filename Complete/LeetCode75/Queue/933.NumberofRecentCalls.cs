@@ -9,10 +9,28 @@ using System.Diagnostics;
 
 // It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.
 
-public class RecentCounter {
-    public RecentCounter() {
-    }
-    
-    public int Ping(int t) {
-    }
+public class RecentCounter
+{
+	// create int queue
+	private Queue<int> queue;
+
+	// init the queue on instantiation
+	public RecentCounter()
+	{
+		queue = new Queue<int>();
+	}
+
+
+	public int Ping(int t)
+	{
+		// add to queue each ping
+		queue.Enqueue(t);
+
+		// dequeue oldest if more than t - 3000ms  
+		while (queue.Peek() < t - 3000)
+			queue.Dequeue();
+
+		// return number of elements within 3000ms 
+		return queue.Count;
+	}
 }
