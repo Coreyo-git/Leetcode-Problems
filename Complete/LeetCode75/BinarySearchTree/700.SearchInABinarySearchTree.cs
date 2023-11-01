@@ -27,13 +27,25 @@ public class Solution
 		}
 	}
 
+	// search for a value in a Binary Search Tree
 	public TreeNode SearchBST(TreeNode root, int val)
 	{
+		// If root is null return null
+		if (root == null) return null;
 
+		// If value is found at current, return the root
+		if (val == root.val) return root;
+
+		// If value is greater than current value, search right subtree
+		if (val > root.val) return SearchBST(root.right, val);
+
+		// If value is less than current value, search left subtree
+		else return SearchBST(root.left, val);
 	}
 
 
-	public static void Main(string[] args) {
+	public static void Main(string[] args)
+	{
 		Solution search = new Solution();
 
 		TreeNode root = new TreeNode(4);
