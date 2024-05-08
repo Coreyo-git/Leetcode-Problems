@@ -11,42 +11,31 @@ namespace Leetcode
     {
         public static bool hasCycle(ListNode head)
         {
-            if (head == null) return false;
+            // Check if the list is empty, return false as an empty list cannot have a cycle
+            if (head == null) 
+                return false;
 
-			// setup two pointers to step through the list at different rates
+            // setup two pointers to step through the list at different rates
+            // pointerOne moves one step at a time (slow)
+            // pointerTwo moves two steps at a time (fast)
             ListNode pointerOne = head;
             ListNode pointerTwo = head;
 
-            while(true) {
-				// check if next is null and return false for no cycle
-                if (pointerTwo.next == null) 
-                    return false;
+            // Loop through the list as long as pointerTwo and pointerTwo's next node are not null
+            while (pointerTwo != null && pointerTwo.next != null) {
+                // Move pointerOne one step forward.
+                pointerOne = pointerOne.next;
+                // Move pointerTwo two steps forward.
+                pointerTwo = pointerTwo.next.next;
 
-				// check for equality and return true for a cycle 
-                if (pointerTwo.next == pointerOne) 
-                    return true;
-
-				// pointerTwo steps forward
-                pointerTwo = pointerTwo.next;
-                
-                if (pointerTwo.next == null) 
-                    return false;
-                if (pointerTwo.next == pointerOne) 
-                    return true;
-
-				// PointerTwo steps forward again moving twice the rate of pointerOne
-                pointerTwo = pointerTwo.next;
-
-                if (pointerTwo.next == null) 
-                    return false;
-				// check if pointerTwo has caught upto pointerOne, resulting in a cycle
-                if (pointerTwo.next == pointerOne) 
-                    return true;
-
-				// step through with pointer one
-                if(pointerOne.next != null) 
-                    pointerOne = pointerOne.next;
+                // Check if the two pointers meet, indicates a cycle.
+                if (pointerOne == pointerTwo)
+                    // If they meet, return true indicating that there is a cycle.
+                    return true; 
             }
+
+            // If pointerTwo reaches the end and is null, it means there is no cycle, breaks and returns false.
+            return false;
         }
 
         public static void Main(string[] args)
