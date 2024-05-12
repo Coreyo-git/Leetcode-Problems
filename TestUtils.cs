@@ -54,26 +54,29 @@ namespace Leetcode
 		{
 			if (obj == null)
 			{
-				return "null";
+				return "object is null";
 			}
 
 			Type type = obj.GetType();
 
 			if (type.IsArray)
 			{
-				Type elementType = type.GetElementType();
+				Type? elementType = type.GetElementType();
 				if (elementType == typeof(int))
 				{
 					var array = obj as int[];
-					return "[" + string.Join(", ", array) + "]";
+					if(array != null)
+						return "[" + string.Join(", ", array) + "]";
+					
+					return "array is null";
 				}
 			}
-			else if (obj is IEnumerable)
+			else if (obj is IEnumerable enumerable)
 			{
 				// recursively format elements of nested collections
 				var sb = new StringBuilder();
 				sb.Append("[");
-				foreach (var item in obj as IEnumerable)
+				foreach (var item in enumerable)
 				{
 					sb.Append(formatObject(item));
 					sb.Append(", ");
@@ -83,8 +86,10 @@ namespace Leetcode
 				sb.Append("]");
 				return sb.ToString();
 			}
-
-			return obj.ToString();
+			
+			 
+			
+			return obj.ToString() ?? "Enumerable object string is null";
 		}
 	}
 }
