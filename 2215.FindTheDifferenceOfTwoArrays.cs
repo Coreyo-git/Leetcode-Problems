@@ -13,14 +13,6 @@ namespace Leetcode
         {
             IList<IList<int>> result = new List<IList<int>>();
 
-			// Added test 1 expected output to test if AreEqual function returns true as intended
-			// result.Add(new List<int> { 1, 3 });
-            // result.Add(new List<int> { 4, 6 });
-
-			// Added test 1 non expected output to test AreEqual function returns false as intended
-			result.Add(new List<int> { 1, 2 });
-            result.Add(new List<int> { 4, 6 });
-
             return result;
         }
 
@@ -47,14 +39,14 @@ namespace Leetcode
             // For nums1, nums1[2] and nums1[3] are not present in nums2. Since nums1[2] == nums1[3], their value is only included once and answer[0] = [3].
             // Every integer in nums2 is present in nums1. Therefore, answer[1] = [].
 
-            // IList<IList<int>> test2Output = FindDifference(new int[] {1,2,3,3}, new int[] {1,1,2,2});
-            // IList<IList<int>> test2Expected = new List<IList<int>>();
+            IList<IList<int>> test2Output = FindDifference(new int[] {1,2,3,3}, new int[] {1,1,2,2});
+            IList<IList<int>> test2Expected = new List<IList<int>>();
 
-            // // Add the sublists to test1Expected
-            // test1Expected.Add(new List<int> { 3 });
-            // test1Expected.Add(new List<int>());
+            // Add the sublists to test1Expected
+            test1Expected.Add(new List<int> { 3 });
+            test1Expected.Add(new List<int>());
 
-            // Debug.Assert(test2Expected.SequenceEqual(test2Output), FormatTestErrorMessage <IList<IList<int>>>(2, test2Expected, test2Output));
+            Debug.Assert(AreEqual(test2Expected, test2Output), FormatTestErrorMessage(2, test2Expected, test2Output));
 
         }
 
@@ -75,7 +67,7 @@ namespace Leetcode
 					return false;
 				}
 			}
-			
+
 			return true;
 		}
     }
