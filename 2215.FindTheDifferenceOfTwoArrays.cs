@@ -11,7 +11,33 @@ namespace Leetcode
         // Note that the integers in the lists may be returned in any order.
         public static IList<IList<int>> FindDifference(int[] nums1, int[] nums2)
         {
+			// Create result list and distinct number lists
             IList<IList<int>> result = new List<IList<int>>();
+			IList<int> distNums1 = new List<int>();
+			IList<int> distNums2 = new List<int>();
+
+			// loop through each list and check if they exist in nums2 or already exist as a duplicate in nums1
+			// if both are false add it to the distinct number list
+			for (int i = 0; i < nums1.Length; i++)
+			{
+				if(nums2.Contains(nums1[i]) || distNums1.Contains(nums1[i]))
+				{
+					continue;
+				}
+				distNums1.Add(nums1[i]);
+			}
+			for (int i = 0; i < nums2.Length; i++)
+			{
+				if(nums1.Contains(nums2[i]) || distNums2.Contains(nums2[i]))
+				{
+					continue;
+				}
+				distNums2.Add(nums2[i]);
+			}
+
+			// Add final lists to result and return. 
+			result.Add(distNums1);
+			result.Add(distNums2);
 
             return result;
         }
