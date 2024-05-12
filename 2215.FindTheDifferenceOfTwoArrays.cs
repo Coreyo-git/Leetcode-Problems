@@ -43,8 +43,8 @@ namespace Leetcode
             IList<IList<int>> test2Expected = new List<IList<int>>();
 
             // Add the sublists to test1Expected
-            test1Expected.Add(new List<int> { 3 });
-            test1Expected.Add(new List<int>());
+            test2Expected.Add(new List<int> { 3 });
+            test2Expected.Add(new List<int>());
 
             Debug.Assert(AreEqual(test2Expected, test2Output), FormatTestErrorMessage(2, test2Expected, test2Output));
 
