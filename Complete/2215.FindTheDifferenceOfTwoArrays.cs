@@ -11,33 +11,27 @@ namespace Leetcode
         // Note that the integers in the lists may be returned in any order.
         public static IList<IList<int>> FindDifference(int[] nums1, int[] nums2)
         {
-			// Create result list and distinct number lists
-            IList<IList<int>> result = new List<IList<int>>();
-			IList<int> distNums1 = new List<int>();
-			IList<int> distNums2 = new List<int>();
+			// Create two hashsets of nums1 and nums2, will remove duplicates
+			// by doing this it should remove the search for duplicates from each loop iteration
+			HashSet<int> nums1HashSet = new HashSet<int>(nums1);
+			HashSet<int> nums2HashSet = new HashSet<int>(nums2);
 
-			// loop through each list and check if they exist in nums2 or already exist as a duplicate in nums1
-			// if both are false add it to the distinct number list
-			for (int i = 0; i < nums1.Length; i++)
+			IList<int> nums1Dist = new List<int>();
+			foreach(int num in nums1HashSet)
 			{
-				if(nums2.Contains(nums1[i]) || distNums1.Contains(nums1[i]))
-				{
-					continue;
-				}
-				distNums1.Add(nums1[i]);
+				if(!nums2HashSet.Contains(num)) 
+					nums1Dist.Add(num);
 			}
-			for (int i = 0; i < nums2.Length; i++)
+			IList<int> nums2Dist = new List<int>();
+			foreach(int num in nums2HashSet)
 			{
-				if(nums1.Contains(nums2[i]) || distNums2.Contains(nums2[i]))
-				{
-					continue;
-				}
-				distNums2.Add(nums2[i]);
+				if(!nums1HashSet.Contains(num)) 
+					nums2Dist.Add(num);
 			}
 
-			// Add final lists to result and return. 
-			result.Add(distNums1);
-			result.Add(distNums2);
+			IList<IList<int>> result = new List<IList<int>>();
+			result.Add(nums1Dist);
+			result.Add(nums2Dist);
 
             return result;
         }
