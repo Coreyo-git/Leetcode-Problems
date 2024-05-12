@@ -21,8 +21,26 @@ namespace Leetcode
 		{
 			string expectedString, actualString;
 
-			expectedString = formatObject(expected);
-			actualString = formatObject(actual);
+			try
+			{
+				if (expected == null || actual == null)
+					throw new ArgumentNullException("Expected or actual value is null.");
+
+				expectedString = formatObject(expected);
+				actualString = formatObject(actual);
+			}
+			catch (ArgumentNullException ex)
+			{
+				return $"Argument Null Exception in test {testNumber}: {ex.Message}";
+			}
+			catch (InvalidCastException ex)
+			{
+				return $"Invalid Cast Exception while formatting test message for test {testNumber}: {ex.Message}";
+			}
+			catch (Exception ex)
+			{
+				return $"Unhandled Exception formatting test message for test {testNumber}: {ex.Message}";
+			}
 
 			return $"-----\nTest {testNumber} Failed\nExpected: {expectedString}\nActual: {actualString}\n-----";
 		}
