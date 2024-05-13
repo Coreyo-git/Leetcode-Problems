@@ -11,7 +11,21 @@ namespace Leetcode
 		// If no such indices exists, return false.
 		public static bool IncreasingTriplet(int[] nums)
 		{
-
+			// Looping through each index [i] from 0
+			// calculating if nums[i] < nums[i+1] and nums[i+1] < nums[i+2]
+			// since we're looping through the indices in order we only need
+			// to satisfy the condition of nums[i] < nums[j] < nums[k].
+			for (int i = 0; i < nums.Length; i++)
+			{
+				for (int j = i + 1; j < nums.Length; j++)
+				{
+					for (int k = j + 1; k < nums.Length; k++)
+					{
+						if(nums[i] < nums[j] && nums[j] < nums[k])
+							return true;
+					}
+				}
+			}
 			return false;
 		}
 
