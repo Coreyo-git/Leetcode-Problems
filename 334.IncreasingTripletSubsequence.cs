@@ -15,16 +15,10 @@ namespace Leetcode
 			// calculating if nums[i] < nums[i+1] and nums[i+1] < nums[i+2]
 			// since we're looping through the indices in order we only need
 			// to satisfy the condition of nums[i] < nums[j] < nums[k].
-			for (int i = 0; i < nums.Length; i++)
+			for (int i = 0; i < nums.Length - 2; i++)
 			{
-				for (int j = i + 1; j < nums.Length; j++)
-				{
-					for (int k = j + 1; k < nums.Length; k++)
-					{
-						if(nums[i] < nums[j] && nums[j] < nums[k])
-							return true;
-					}
-				}
+				if(nums[i] < nums[i+1] && nums[i+1] < nums[i+2])
+						return true;
 			}
 			return false;
 		}
@@ -54,6 +48,14 @@ namespace Leetcode
 			bool test3Expected = true;
 
 			Debug.Assert(test3Expected == test3Output, FormatTestErrorMessage(3, test3Expected, test3Output));
+
+			// Input: nums = [20,100,10,12,5,13]
+			// Output: true
+			// Explanation: the triplet 10, 12, 13 is valid but is missed 
+			bool test4Output = IncreasingTriplet([20,100,10,12,5,13]);
+			bool test4Expected = true;
+
+			Debug.Assert(test4Expected == test4Output, FormatTestErrorMessage(4, test4Expected, test4Output));
 		}
 	}
 }
