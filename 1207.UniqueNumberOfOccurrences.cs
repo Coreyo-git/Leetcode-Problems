@@ -10,7 +10,24 @@ namespace Leetcode
         // of each value in the array is unique or false otherwise.
         public static bool UniqueOccurrences(int[] arr)
         {
-            return false;
+            int n = arr.Length;
+            if (n < 2) return true;
+            Dictionary<int, int> uniqueOccurrences = new Dictionary<int, int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                // If the value already exists in the array increment it
+                if (uniqueOccurrences.ContainsKey(arr[i]))
+                {
+                    uniqueOccurrences[arr[i]] += 1;
+                    continue;
+                }
+                // else add it to the dictionary with a value of 1
+                uniqueOccurrences.Add(arr[i], 1);
+            };
+
+            // if the value of distinct values is equal to the count of keys it's unique
+            return uniqueOccurrences.Values.Distinct().Count() == uniqueOccurrences.Count;
         }
 
         public static void Main(string[] args)
@@ -36,7 +53,7 @@ namespace Leetcode
             // Test 3
             // Input: arr = [-3,0,1,-3,1,1,1,-3,10,0]
             // Output: true
-            bool test3Output = UniqueOccurrences([-3,0,1,-3,1,1,1,-3,10,0]);
+            bool test3Output = UniqueOccurrences([-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]);
             bool test3Expected = true;
 
             Debug.Assert(test3Expected == test3Output, FormatTestErrorMessage(3, test3Expected, test3Output));
