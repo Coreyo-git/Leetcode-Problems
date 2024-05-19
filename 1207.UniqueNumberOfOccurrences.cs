@@ -26,8 +26,9 @@ namespace Leetcode
                 uniqueOccurrences.Add(arr[i], 1);
             };
 
-            // if the value of distinct values is equal to the count of keys it's unique
-            return uniqueOccurrences.Values.Distinct().Count() == uniqueOccurrences.Count;
+            // convert to hashset to avoid iterating over dict for distinct values
+            HashSet<int> uniqueOccurrencesHSet = new HashSet<int>(uniqueOccurrences.Values);
+            return uniqueOccurrences.Count == uniqueOccurrencesHSet.Count;
         }
 
         public static void Main(string[] args)
