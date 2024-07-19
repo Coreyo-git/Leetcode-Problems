@@ -1,4 +1,4 @@
-const { formatTestErrorMessage, isArrayEqual } = require("./TestUtils");
+const { formatTestErrorMessage, isArrayEqual } = require("../TestUtils");
 
 // Given an integer n, return an array ans of length n + 1
 // such that for each i (0 <= i <= n), ans[i]
@@ -9,7 +9,23 @@ const { formatTestErrorMessage, isArrayEqual } = require("./TestUtils");
  * @return {number[]}
  */
 var countBits = function (n) {
-	
+    // Initialize array of length n+1 with all elements set to 0
+    let ans = new Array(n + 1).fill(0);
+    
+	// used to find the most significant bit's position
+    let offset = 1; // highest ^2 number
+
+	for (let i = 1; i <= n; i++) {
+        // If i is a power of 2, update offset to i
+        if (offset * 2 === i) {
+            offset = i;
+		}
+		// Calculate the number of 1's
+		// i - offset flips the MSB to 0
+        ans[i] = 1 + ans[i - offset];
+    }
+
+    return ans;
 };
 
 // Example 1:
