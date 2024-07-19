@@ -51,21 +51,27 @@ function formatObject(obj) {
 }
 
 function isArrayEqual(a, b) {
-    // check length
-    if (a.length != b.length) {
-        return false;
-    } else {
-        let result = false;
-
-        // comparing each element
-        for (let i = 0; i < a.length; i++) {
-            if (a[i] !== b[i]) {
-                return false;
-            } else {
-                result = true;
-            }
+    try {
+        // Check null
+        if (a == null || b == null) {
+            return false;
         }
-        return result;
+
+        // Check length
+        if (a.length != b.length) {
+            return false;
+        } else {
+            // Comparing each element
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    } catch (error) {
+        console.error("Error comparing arrays:", error);
+        return false;
     }
 }
 
