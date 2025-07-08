@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/Coreyo-git/Leetcode-Problems/Go/problems"
 	"reflect"
 	"testing"
-	"github.com/Coreyo-git/Leetcode-Problems/Go/problems"
 )
 
 func TestTwoSum(t *testing.T) {
@@ -60,24 +60,24 @@ func TestTwoSum(t *testing.T) {
 
 func TestPalindromeNumber(t *testing.T) {
 	tests := []struct {
-		name string
+		name  string
 		input int
-		want bool
-	} {
+		want  bool
+	}{
 		{
-			name: "Example 1",
+			name:  "Example 1",
 			input: 121,
-			want: true,
-		}, 
-		{
-			name: "Example 2",
-			input: -121,
-			want: false,
+			want:  true,
 		},
 		{
-			name: "Example 3",
+			name:  "Example 2",
+			input: -121,
+			want:  false,
+		},
+		{
+			name:  "Example 3",
 			input: 10,
-			want: false,
+			want:  false,
 		},
 	}
 
@@ -89,5 +89,55 @@ func TestPalindromeNumber(t *testing.T) {
 			}
 		})
 	}
-	
+
+}
+
+func TestMergeSortedArray(t *testing.T) {
+	tests := []struct {
+		name  string
+		nums1 []int
+		m     int
+		nums2 []int
+		n     int
+		want  []int
+	}{
+		{
+			name:  "Example 1",
+			nums1: []int{1, 2, 3, 0, 0, 0},
+			m:     3,
+			nums2: []int{2, 5, 6},
+			n:     3,
+			want:  []int{1, 2, 2, 3, 5, 6},
+		},
+		{
+			name:  "Example 2",
+			nums1: []int{1},
+			m:     1,
+			nums2: []int{},
+			n:     0,
+			want:  []int{1},
+		},
+		{
+			name:  "Example 3",
+			nums1: []int{0},
+			m:     0,
+			nums2: []int{1},
+			n:     1,
+			want:  []int{1},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Create a copy of nums1 to log in case of failure, as the function modifies it in-place.
+			nums1Before := make([]int, len(tt.nums1))
+			copy(nums1Before, tt.nums1)
+
+			problems.MergeSortedArray(tt.nums1, tt.m, tt.nums2, tt.n)
+
+			if !reflect.DeepEqual(tt.nums1, tt.want) {
+				t.Errorf("MergeSortedArray(%v, %d, %v, %d) = %v, want %v", nums1Before, tt.m, tt.nums2, tt.n, tt.nums1, tt.want)
+			}
+		})
+	}
 }
