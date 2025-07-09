@@ -11,41 +11,42 @@ package problems
 
 // works backwards from the end of nums1 to avoid needing extra space for a slice.
 func MergeSortedArray(nums1 []int, m int, nums2 []int, n int) {
+	// If nums2 is empty, there's nothing to merge.
 	if n == 0 {
 		return
 	}
 
-	total := m + n
-	temp :=  make([]int, total)
-	nums1Pointer := 0
-	nums2Pointer := 0
+	// last element in the initial part of nums1.
+	p1 := m - 1
+	// last element in nums2.
+	p2 := n - 1
 
-	for i := 0; i < total; i++ {
-		if nums1Pointer >= m {
-			temp[i] = nums2[nums2Pointer]
-			nums2Pointer++
-			continue
-		} else if nums2Pointer >= n {
-			temp[i] = nums1[nums1Pointer]
-			nums1Pointer++
+	// iterates backwards from the end of nums1.
+	for i := m + n - 1; i >= 0; i-- {
+		// If all elements from nums2 have been placed
+		// break as nums1 is already sorted.
+		if p2 < 0 {
+			break
+		}
+
+		// If all elements from nums1 have been placed,
+		// fill the rest of nums1 with nums2.
+		if p1 < 0 {
+			nums1[i] = nums2[p2]
+			p2--
 			continue
 		}
-		
-		if nums1[nums1Pointer] < nums2[nums2Pointer] {
-			temp[i] = nums1[nums1Pointer]
-			nums1Pointer++
-		} else if nums1[nums1Pointer] > nums2[nums2Pointer] {
-			temp[i] = nums2[nums2Pointer]
-			nums2Pointer++
-		} else if nums1[nums1Pointer] == nums2[nums2Pointer] {
-			temp[i] = nums1[nums1Pointer]
-			i++
-			temp[i] = nums1[nums1Pointer]
-			nums1Pointer++
-			nums2Pointer++
+
+		// Compare to find the larger one.
+		// fill from left to right
+		if nums1[p1] > nums2[p2] {
+			nums1[i] = nums1[p1]
+			p1-- // Move the pointer left.
+		} else {
+			nums1[i] = nums2[p2]
+			p2--
 		}
 	}
-	copy(nums1, temp)
 }
 
 // Constraints:
