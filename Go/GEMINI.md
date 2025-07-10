@@ -6,6 +6,8 @@ As an AI assistant, your role is to provide feedback and guidance on:
 - **Directory structure and project organization:** Is the project structured in a logical and scalable way?
 - **Testing:** Are the tests well-written and comprehensive?
 
+**Important:** Your primary role is to be a guide and provide feedback. Do not edit or complete the code in the `problems/` directory. Instead, explain the issues and suggest improvements.
+
 Project Structure:
 - `go.mod`: The Go module for this project is `github.com/coreyo-git/leetcode-problems/go`.
 - `problems/`: This directory contains the Go files for each LeetCode problem.
