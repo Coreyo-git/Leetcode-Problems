@@ -141,3 +141,57 @@ func TestMergeSortedArray(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveElement(t *testing.T) {
+	tests := []struct {
+		name string
+		nums []int
+		val  int
+		want int
+		expectedNums []int
+	}{
+		{
+			name: "Example 1",
+			nums: []int{3, 2, 2, 3},
+			val:  3,
+			want: 2,
+			expectedNums: []int{2, 2},
+		},
+		{
+			name: "Example 2",
+			nums: []int{0, 1, 2, 2, 3, 0, 4, 2},
+			val:  2,
+			want: 5,
+			expectedNums: []int{0, 0, 1, 3, 4},
+		},
+		{
+			name: "Example 3",
+			nums: []int{2},
+			val:  3,
+			want: 1,
+			expectedNums: []int{2},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotVal, gotNums := problems.RemoveElement(tt.nums, tt.val)
+			if !reflect.DeepEqual(gotVal, tt.want) {
+				t.Errorf("RemoveElement(%v, %d) = %v, want %v", tt.nums, tt.val, gotVal, tt.want)
+			}
+			
+			// Create new slice with all elements in range of want
+			slicedNums := gotNums[0:tt.want]
+			// sort elements to match test case
+			for i := 0; i < tt.want; i++ {
+				for j := i; j > 0 && slicedNums[j-1] > slicedNums[j]; j-- {
+					slicedNums[j], slicedNums[j-1] = slicedNums[j-1], slicedNums[j]
+				}
+			}
+
+			if !reflect.DeepEqual(slicedNums, tt.expectedNums) {
+				t.Errorf("RemoveElement(%v, %d) = %v, want %v | Array was not mutated", tt.nums, tt.val, gotNums, tt.expectedNums)
+			}
+		})
+	}
+}
